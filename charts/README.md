@@ -1,20 +1,15 @@
-### React App displaying a Bar chart
+### Charts
 
 ```
 // npm i chart.js react-chartjs-2
-
-// https://codesandbox.io/examples/package/react-chartjs-2
-
 import React from 'react'
 import { Chart } from 'chart.js/auto';
-import { Bar, Pie } from 'react-chartjs-2';
-
-
+import { Bar, Pie, Doughnut } from 'react-chartjs-2';
 import {CategoryScale} from 'chart.js';
+
 Chart.register(CategoryScale);
 
 function App() {
-
   const bar = [
     { date: new Date("2024-1").toLocaleDateString(), rating: 1 },
     { date: new Date("2024-2").toLocaleDateString(), rating: 3, },
@@ -31,6 +26,14 @@ function App() {
     { percent: 10, country: "DK", color:'#ff0000' },
   ]
 
+  const donut = [
+    { percent: 50, country: "US", color:'#0000ff' },
+    { percent: 25, country: "GB", color:'#333'},
+    { percent: 10, country: "CA", color:'#c0c0c0' },
+    { percent: 5, country: "MX", color: '#000' },
+    { percent: 10, country: "DK", color:'#ff0000' },
+  ]
+
   const barData = {
     labels: bar.map(x => x.date),
     datasets: [{ label: "Rating", data: bar.map(x => x.rating), backgroundColor:'#0000ff' },
@@ -39,17 +42,21 @@ function App() {
   const pieData = {
     labels: pie.map(x => x.country),
     datasets: [{ label: "", data: pie.map(x => x.percent), backgroundColor: pie.map(x => x.color) },
+  ]}
 
+  const donutData = {
+    labels: donut.map(x => x.country),
+    datasets: [{ label: "", data: pie.map(x => x.percent), backgroundColor: pie.map(x => x.color) },
   ]}
 
   return (
     <div>
         <Bar data={barData} />
         <Pie data={pieData} />
+        <Doughnut data={donutData} />
      </div>
   )
 }
 
 export default App
-
 ```

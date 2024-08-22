@@ -100,6 +100,8 @@ console.log(total)
 ```
 const data=[{auto:"car"},{auto:"truck"},{auto:"car"},{auto:"car"},{auto:"van"}]
 const total=data.reduce((obj, item) => {
+	// If item doesn't exist yet we need to make an entry
+	// for that item
 	if (!obj[item.auto]) {
 		obj[item.auto] = 1
 	} else {
@@ -108,4 +110,51 @@ const total=data.reduce((obj, item) => {
 	return obj
 }, {})
 console.log(total)
+
+const fruit = [{name:'orange'},{name:'banana'},{name:'orange'},{name:'banana'},{name:'apple'}]
+const distinctItems = []
+fruit.map((item) => {
+	const index = distinctItems.findIndex(x => x.name === item.name)
+	if (index !== -1) {
+		distinctItems[index].count = distinctItems[index].count+1
+	} else {
+		distinctItems.push({...item, count: 1 })
+	}
+})
+console.log(distinctItems)
+
+
+const inventors = [
+	{first:'Albert',last:'Einstein',year:1879,passed:1955},
+	{first:'Isaac',last:'Newton',year:1643,passed:1727},
+	{first:'Galileo',last:'Galilei',year:1564,passed:1642},
+	{first:'Marie',last:'Curie',year:1867,passed:1934},
+	{first:'Johannes',last:'Kepler',year:1571,passed:1630},
+	{first:'Nicolaus',last:'copernicus',year:1473,passed:1543},
+	{first:'Max',last:'Planck',year:1858,passed:1847},
+]
+
+const totalYears = inventors.reduce((total, inventor) => {
+	return total + (inventor.passed - inventor.year)
+}, 0)
+console.log(totalYears)
+
+
+const oldest = inventors.sort((a, b) => {
+	const lastGuy = a.passed - a.year
+	const nextGuy = b.passed - b.year
+
+	return lastGuy > nextGuy ? -1 : 1;
+})
+console.table(oldest)
+
+const people = ['Beck, Glenn', 'Becker, Carl', 'Black, Elk', 'Blair, Tony']
+const alpha = people.sort((lastOne, nextOne) => {
+	// const parts = lastOne.split(', ')
+	// use destructuring instead
+	const [aLast, aFirst] = lastOne.split(', ')
+	const [bLast, bFirst] = nextOne.split(', ')
+	return aLast > bLast ? -1 : 1
+})
+console.log(alpha)
 ```
