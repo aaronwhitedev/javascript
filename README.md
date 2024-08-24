@@ -1,6 +1,6 @@
 # Intro to JavaScript
 
-Many engineers work 'around' JavaScript and really don't understand how the language functions and end up wasting extensive time debugging. In this article I review some of the fundamentals which are often overlooked.
+Many engineers work 'around' JavaScript and really don't understand how the language functions and end up wasting extensive time debugging.
 
 Starting from the beginning, JavaScript is a dynamically typed language which implements blocks (curly braces `{}`). Code is evaluated and executed in sequential order, with some important caveats.
 
@@ -48,7 +48,8 @@ Joe
 
 A string may use a single quotation mark (`‘`) or a double quotation mark (`“`). A developer’s use sometimes depends on what is being passed into a function (`console.log` is a function). By convention, variables and functions are typically written using the camelcase naming convention where the first letter of a word, after the first word, is capitalized. Variables must start with an underscore, an alphabetical character, or a `$`.
 
-Examples:  
+### Examples:
+
 `firstName`, `age`, `streetAddress`, `email`, `phoneNumber`, `fourtyNine`, `_xyz`, `$x`
 
 Referencing an unknown variable results in an `Uncaught ReferenceError of not defined` typical of a misspelled variable.

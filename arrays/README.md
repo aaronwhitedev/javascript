@@ -85,6 +85,31 @@ const unique=[...names,...months].filter((obj, i, arr) => arr.findIndex(x => JSO
 console.log(unique)
 ```
 
+### Shallow copy (using the spead operator)
+
+#### Only goes one layer deep
+
+```
+const people=[{name:"Bill",location:{ address: { street: '123 main st'} }},{name:"Joe",location:{ address: { street: '345 main st'}}}]
+const persons = [...people]
+persons[1].location = { address: { street:'900 block st' }}
+console.log(people[1].location)
+console.log(persons[1].location)
+```
+
+### Deep copy using JSON
+
+Using JSON.parse(JSON.stringify()) messes up dates
+
+### Deep copy using structuredClone
+
+```
+const people=[{name:"Bill",location:{ address: { street: '123 main st'} }},{name:"Joe",location:{ address: { street: '345 main st'}}}]
+const persons = structuredClone(people)
+persons[1].location = { address: { street:'900 block st' }}
+console.log(people[1].location)
+```
+
 ### Sum the numbers
 
 ```
@@ -157,4 +182,40 @@ const alpha = people.sort((lastOne, nextOne) => {
 	return aLast > bLast ? -1 : 1
 })
 console.log(alpha)
+```
+
+```
+const groupBy = (list, keyGetter) => {
+    const map = new Map();
+    list.forEach((item) => {
+         const key = keyGetter(item);
+         const collection = map.get(key);
+         if (!collection) {
+             map.set(key, [item]);
+         } else {
+             collection.push(item);
+         }
+    });
+    return map;
+}
+
+const pets = [
+    {type:"Dog",name:"Spot"},
+    {type:"Cat",name:"Tiger"},
+    {type:"Dog",name:"Rover"},
+    {type:"Cat",name:"Leo"}
+];
+
+const grouped = groupBy(pets, pet => pet.type);
+console.log(grouped.get("Dog"));
+console.log(grouped.get("Cat"));
+
+const odd = Symbol();
+const even = Symbol();
+const numbers = [1,2,3,4,5,6,7];
+
+const oddEven = groupBy(numbers, x => (x % 2 === 1 ? odd : even));
+
+console.log(oddEven.get(odd)); // -> [1,3,5,7]
+console.log(oddEven.get(even)); // -> [2,4,6]
 ```
