@@ -532,6 +532,39 @@ This code is much cleaner and we’re leveraging a wildly popular and battle tes
 
 As a side note, the fetch import statement is written to support various environments so this works `EVERYWHERE`.
 
+## Timeout or Promise?!?
+
+So we've looked at a couple scenarios in JavaScript which use the Event Loop. Obviously they resolve in sequential order, right?
+
+In the below code we'll call `setTimeout` directly before calling a `Promise`.
+
+```
+console.log("One")
+setTimeout(_ => console.log("Two"), 0)
+Promise.resolve().then(_ => console.log("Three"))
+console.log("Four")
+One
+Four
+Three
+Two
+```
+
+What's going on here?!?!? `setTimeout` is placed in a `Task` queue which is place in the Event Loop after a `Promise` because a `Promise` is placed in the `microtask` queue and called first.
+
+However, if the operation being called takes longer to resolve, including any real-world scenario where a `Promise` is actually resolving something useful, the `Promise` will resolve after `setTimeout` resolves.
+
+```
+console.log("One")
+fetch('https://jsonplaceholder.typicode.com/todos/1').then(res => res. json()).then(user => console.log(user.title))
+setTimeout(_ => console.log("Two"), 0)
+console.log("Four")
+
+One
+Four
+Two
+delectus aut autem
+```
+
 ## Closures
 
 Closures hide variables from the global scope (`counter` in below example) in the Closed Over Variable Environment (COVE) or Persistent Lexical Scope Referenced Data (PLSRD). Closures give our code persistent memory:
