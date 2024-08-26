@@ -428,10 +428,10 @@ const uri = 'https://jsonplaceholder.typicode.com/todos';
 			console.log('2');
 		});
 	}).on('error', (error) => {
-	console.log('Error', error);
-})
-.end();
-console.log('3');
+		console.log('Error', error);
+	})
+	.end();
+	console.log('3');
 })();
 ```
 
